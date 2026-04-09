@@ -7,7 +7,7 @@ export function Mentor() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="mentor" className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background accent */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/[0.02] -skew-x-12 origin-top-right" />
       

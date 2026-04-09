@@ -2,14 +2,15 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Check, ArrowRight } from "lucide-react";
-
-const TG_LINK = "https://t.me/zaharich777";
+import { LINKS } from "@/config/links";
 
 const plans = [
   {
     name: "Индивидуально",
     price: "11 000",
-    period: "мес на 3 года",
+    totalPrice: "396 000",
+    period: "мес",
+    duration: "36 месяцев",
     description: "Всё необходимое для старта в Go-разработке",
     features: [
       "Индивидуальный ментор",
@@ -23,7 +24,9 @@ const plans = [
   {
     name: "VIP",
     price: "17 000",
-    period: "мес на 3 года",
+    totalPrice: "612 000",
+    period: "мес",
+    duration: "36 месяцев",
     description: "Для тех, кто хочет гарантий трудоустройства",
     features: [
       "Все опции базового тарифа",
@@ -34,6 +37,7 @@ const plans = [
     ],
     highlighted: true,
     badge: "Популярный",
+    guaranteeTerms: "При выполнении всех заданий и активном поиске работы в течение 6 месяцев после окончания программы",
   },
 ];
 
@@ -71,10 +75,10 @@ export function Pricing() {
                 delay: index * 0.15,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className={`relative rounded-xl p-8 lg:p-10 ${
+              className={`relative rounded-xl p-8 lg:p-10 transition-all duration-300 ${
                 plan.highlighted
-                  ? "bg-[hsl(var(--foreground))] text-[hsl(var(--background))]"
-                  : "bg-[hsl(var(--card))] text-[hsl(var(--foreground))] border border-[hsl(var(--dark-border))]"
+                  ? "bg-[hsl(var(--foreground))] text-[hsl(var(--background))] shadow-2xl shadow-primary/10 scale-[1.02] lg:scale-105"
+                  : "bg-[hsl(var(--card))] text-[hsl(var(--foreground))] border border-[hsl(var(--dark-border))] hover:border-primary/30 hover:-translate-y-1"
               }`}
             >
               {/* Badge */}
@@ -96,19 +100,26 @@ export function Pricing() {
 
               {/* Price */}
               <div className="mb-8">
-                <span className="font-serif text-5xl font-bold">
-                  {plan.price}
-                </span>
-                <span className={`text-lg ml-1 ${
-                  plan.highlighted ? "text-primary" : "text-primary"
+                <div className="flex items-baseline gap-1">
+                  <span className="font-serif text-5xl font-bold">
+                    {plan.price}
+                  </span>
+                  <span className={`text-lg ${
+                    plan.highlighted ? "text-primary" : "text-primary"
+                  }`}>
+                    ₽
+                  </span>
+                  <span className={`text-sm ml-1 ${
+                    plan.highlighted ? "text-[hsl(var(--background))]/60" : "text-[hsl(var(--muted-foreground))]"
+                  }`}>
+                    / {plan.period}
+                  </span>
+                </div>
+                <p className={`text-sm mt-2 ${
+                  plan.highlighted ? "text-[hsl(var(--background))]/50" : "text-[hsl(var(--muted-foreground))]"
                 }`}>
-                  ₽
-                </span>
-                <span className={`text-sm ml-2 ${
-                  plan.highlighted ? "text-[hsl(var(--background))]/60" : "text-[hsl(var(--muted-foreground))]"
-                }`}>
-                  / {plan.period}
-                </span>
+                  Итого за {plan.duration}: {plan.totalPrice} ₽
+                </p>
               </div>
 
               {/* Features */}
@@ -132,10 +143,10 @@ export function Pricing() {
 
               {/* CTA */}
               <a
-                href={TG_LINK}
+                href={LINKS.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-semibold transition-all duration-300 ${
+                className={`group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   plan.highlighted
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))]/90"
