@@ -9,3 +9,4 @@ export { FAQ } from "./FAQ";
 export { LeadForm } from "./LeadForm";
 export { Footer } from "./Footer";
 export { StickyMobileCTA } from "./StickyMobileCTA";
+export { ScrollToTop } from "./ScrollToTop";

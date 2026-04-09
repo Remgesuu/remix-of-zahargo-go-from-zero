@@ -56,23 +56,23 @@ export function Mentor() {
             </div>
           </motion.div>
 
-          {/* Visual */}
+          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="aspect-[4/5] bg-gradient-to-br from-card to-muted rounded-lg overflow-hidden relative">
-              {/* Initials as placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-serif text-[160px] lg:text-[200px] font-bold text-primary/10">
-                  ЗЖ
-                </span>
-              </div>
+            <div className="aspect-[4/5] rounded-2xl overflow-hidden relative shadow-xl">
+              {/* Mentor photo */}
+              <img
+                src="/images/mentor.jpg"
+                alt="Захар Жихарев — Go-разработчик и ментор"
+                className="w-full h-full object-cover object-top"
+              />
               
               {/* Quote overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-foreground/90 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 bg-gradient-to-t from-foreground/95 via-foreground/70 to-transparent">
                 <blockquote className="font-serif text-lg lg:text-xl text-background italic">
                   {'"'}Моя цель — чтобы каждый студент получил работу{'"'}
                 </blockquote>
@@ -81,6 +81,7 @@ export function Mentor() {
 
             {/* Decorative element */}
             <div className="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-primary/20 rounded-lg -z-10" />
+            <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-lg -z-10" />
           </motion.div>
         </div>
       </div>

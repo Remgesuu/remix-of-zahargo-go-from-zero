@@ -9,6 +9,7 @@ import { FAQ } from "@/components/landing/FAQ";
 import { LeadForm } from "@/components/landing/LeadForm";
 import { Footer } from "@/components/landing/Footer";
 import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
+import { ScrollToTop } from "@/components/landing/ScrollToTop";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
       </main>
       <Footer />
       <StickyMobileCTA />
+      <ScrollToTop />
     </div>
   );
 };
