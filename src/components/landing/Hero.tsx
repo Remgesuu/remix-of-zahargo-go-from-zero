@@ -1,95 +1,169 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Terminal, X, Minus, Plus } from "lucide-react";
+import { motion, useDragControls } from "framer-motion";
+import { ArrowRight, Terminal, X, Minus, Plus, Play, GripHorizontal } from "lucide-react";
 import { LINKS } from "@/config/links";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-// Animated code lines for the terminal
+// Interactive Go code example with draggable terminal and run functionality
 const codeLines = [
-  { text: 'package main', delay: 0 },
-  { text: '', delay: 0.1 },
-  { text: 'import "fmt"', delay: 0.2 },
-  { text: '', delay: 0.3 },
-  { text: 'func main() {', delay: 0.4 },
-  { text: '    server := NewServer()', delay: 0.6 },
-  { text: '    server.Handle("/api", handler)', delay: 0.8 },
-  { text: '    server.ListenAndServe(":8080")', delay: 1.0 },
-  { text: '}', delay: 1.2 },
+  { text: 'package main', type: 'keyword' },
+  { text: '', type: 'empty' },
+  { text: 'import (', type: 'keyword' },
+  { text: '    "fmt"', type: 'string' },
+  { text: '    "net/http"', type: 'string' },
+  { text: '    "encoding/json"', type: 'string' },
+  { text: ')', type: 'keyword' },
+  { text: '', type: 'empty' },
+  { text: 'type Server struct {', type: 'keyword' },
+  { text: '    port string', type: 'variable' },
+  { text: '}', type: 'keyword' },
+  { text: '', type: 'empty' },
+  { text: 'func main() {', type: 'keyword' },
+  { text: '    srv := &Server{port: ":8080"}', type: 'variable' },
+  { text: '    http.HandleFunc("/api", srv.handler)', type: 'function' },
+  { text: '    fmt.Println("🚀 Server running...")', type: 'function' },
+  { text: '    http.ListenAndServe(srv.port, nil)', type: 'function' },
+  { text: '}', type: 'keyword' },
+];
+
+// Output lines when "running" the code
+const outputLines = [
+  '$ go run main.go',
+  '🚀 Server running...',
+  'Listening on :8080',
 ];
 
 function CodeTerminal() {
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [showOutput, setShowOutput] = useState(false);
+  const constraintsRef = useRef(null);
+  const dragControls = useDragControls();
+  
+  const handleRun = () => {
+    if (isRunning) return;
+    setIsRunning(true);
+    setShowOutput(false);
+    
+    setTimeout(() => {
+      setShowOutput(true);
+      setTimeout(() => {
+        setIsRunning(false);
+      }, 2000);
+    }, 500);
+  };
   
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative"
-    >
-      {/* Terminal window */}
-      <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/5">
-        {/* Terminal header */}
-        <div 
-          className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5"
-          onMouseEnter={() => setIsHeaderHovered(true)}
-          onMouseLeave={() => setIsHeaderHovered(false)}
-        >
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57] flex items-center justify-center cursor-pointer hover:bg-[#ff4136] transition-colors">
-              {isHeaderHovered && <X className="w-2 h-2 text-[#4a0002]" strokeWidth={2.5} />}
+    <div ref={constraintsRef} className="absolute inset-0 pointer-events-none">
+      <motion.div
+        drag
+        dragControls={dragControls}
+        dragConstraints={constraintsRef}
+        dragElastic={0.1}
+        dragMomentum={false}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative pointer-events-auto cursor-grab active:cursor-grabbing"
+        whileDrag={{ scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
+      >
+        {/* Terminal window */}
+        <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/10 w-[520px] xl:w-[580px]">
+          {/* Terminal header */}
+          <div 
+            className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5 select-none"
+            onMouseEnter={() => setIsHeaderHovered(true)}
+            onMouseLeave={() => setIsHeaderHovered(false)}
+            onPointerDown={(e) => dragControls.start(e)}
+          >
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-[#ff5f57] flex items-center justify-center cursor-pointer hover:bg-[#ff4136] transition-colors">
+                {isHeaderHovered && <X className="w-2 h-2 text-[#4a0002]" strokeWidth={2.5} />}
+              </div>
+              <div className="w-3 h-3 rounded-full bg-[#febc2e] flex items-center justify-center cursor-pointer hover:bg-[#f5a623] transition-colors">
+                {isHeaderHovered && <Minus className="w-2 h-2 text-[#985700]" strokeWidth={2.5} />}
+              </div>
+              <div className="w-3 h-3 rounded-full bg-[#28c840] flex items-center justify-center cursor-pointer hover:bg-[#1db954] transition-colors">
+                {isHeaderHovered && <Plus className="w-2 h-2 text-[#006500]" strokeWidth={2.5} />}
+              </div>
             </div>
-            <div className="w-3 h-3 rounded-full bg-[#febc2e] flex items-center justify-center cursor-pointer hover:bg-[#f5a623] transition-colors">
-              {isHeaderHovered && <Minus className="w-2 h-2 text-[#985700]" strokeWidth={2.5} />}
+            
+            <div className="flex-1 flex items-center justify-center gap-2 text-xs text-white/40">
+              <GripHorizontal className="w-4 h-4 text-white/20" />
+              <Terminal className="w-3 h-3" />
+              <span>main.go</span>
             </div>
-            <div className="w-3 h-3 rounded-full bg-[#28c840] flex items-center justify-center cursor-pointer hover:bg-[#1db954] transition-colors">
-              {isHeaderHovered && <Plus className="w-2 h-2 text-[#006500]" strokeWidth={2.5} />}
-            </div>
+            
+            {/* Run button */}
+            <button
+              onClick={handleRun}
+              disabled={isRunning}
+              className="flex items-center gap-1.5 px-3 py-1 bg-[#28c840] hover:bg-[#1db954] text-[#006500] text-xs font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Play className="w-3 h-3" fill="currentColor" />
+              {isRunning ? 'Running...' : 'Run'}
+            </button>
           </div>
-          <div className="flex-1 flex items-center justify-center gap-2 text-xs text-white/40">
-            <Terminal className="w-3 h-3" />
-            <span>main.go</span>
+          
+          {/* Terminal content */}
+          <div className="p-5 font-mono text-sm leading-relaxed max-h-[380px] overflow-y-auto">
+            {codeLines.map((line, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 + 0.8 }}
+                className="min-h-[1.4em]"
+              >
+                {line.text && (
+                  <span className={
+                    line.type === 'keyword' ? 'text-[#c586c0]' :
+                    line.type === 'string' ? 'text-[#ce9178]' :
+                    line.type === 'function' ? 'text-[#dcdcaa]' :
+                    'text-[#9cdcfe]'
+                  }>
+                    {line.text}
+                  </span>
+                )}
+              </motion.div>
+            ))}
+            
+            {/* Output section */}
+            {showOutput && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="mt-4 pt-4 border-t border-white/10"
+              >
+                {outputLines.map((line, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.3 }}
+                    className={`min-h-[1.4em] ${index === 0 ? 'text-white/50' : 'text-[#4ec9b0]'}`}
+                  >
+                    {line}
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+            
+            {/* Cursor */}
+            {!showOutput && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 1, delay: 1.8, repeat: Infinity }}
+                className="inline-block w-2 h-5 bg-primary ml-1 align-middle"
+              />
+            )}
           </div>
         </div>
         
-        {/* Terminal content */}
-        <div className="p-5 font-mono text-sm leading-relaxed">
-          {codeLines.map((line, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: line.delay + 0.8 }}
-              className="min-h-[1.5em]"
-            >
-              {line.text && (
-                <span className={
-                  line.text.startsWith('package') || line.text.startsWith('import') || line.text.startsWith('func')
-                    ? 'text-[#c586c0]'
-                    : line.text.includes('NewServer') || line.text.includes('Handle') || line.text.includes('ListenAndServe')
-                      ? 'text-[#dcdcaa]'
-                      : line.text.includes('"')
-                        ? 'text-[#ce9178]'
-                        : 'text-[#9cdcfe]'
-                }>
-                  {line.text}
-                </span>
-              )}
-            </motion.div>
-          ))}
-          
-          {/* Cursor */}
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 1, delay: 2.2, repeat: Infinity }}
-            className="inline-block w-2 h-5 bg-primary ml-1 align-middle"
-          />
-        </div>
-      </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute -bottom-3 -right-3 w-full h-full bg-primary/10 rounded-xl -z-10" />
-    </motion.div>
+        {/* Decorative elements */}
+        <div className="absolute -bottom-3 -right-3 w-full h-full bg-primary/10 rounded-xl -z-10" />
+      </motion.div>
+    </div>
   );
 }
 
@@ -104,7 +178,7 @@ export function Hero() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-24 w-full">
-        <div className="grid lg:grid-cols-[1fr,auto] gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div className="min-w-0">
             {/* Eyebrow */}
@@ -195,8 +269,8 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Terminal Visual */}
-          <div className="hidden lg:block w-[420px] xl:w-[480px] flex-shrink-0">
+          {/* Terminal Visual - larger and draggable */}
+          <div className="hidden lg:block relative h-[500px]">
             <CodeTerminal />
           </div>
         </div>
