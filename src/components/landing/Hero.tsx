@@ -53,7 +53,7 @@ function CodeTerminal() {
   };
   
   return (
-    <div ref={constraintsRef} className="absolute inset-0 pointer-events-none">
+    <div ref={constraintsRef} className="relative w-full h-full flex items-center justify-center">
       <motion.div
         drag
         dragControls={dragControls}
@@ -63,7 +63,7 @@ function CodeTerminal() {
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative pointer-events-auto cursor-grab active:cursor-grabbing"
+        className="relative cursor-grab active:cursor-grabbing"
         whileDrag={{ scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
       >
         {/* Terminal window */}
@@ -276,21 +276,22 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block"
-      >
+      {/* Scroll indicator - positioned in document flow, not absolute */}
+      <div className="flex justify-center pb-8 hidden lg:flex">
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-border flex items-start justify-center pt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.5 }}
         >
-          <div className="w-1 h-2 bg-muted-foreground rounded-full" />
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-6 h-10 rounded-full border-2 border-border flex items-start justify-center pt-2"
+          >
+            <div className="w-1 h-2 bg-muted-foreground rounded-full" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

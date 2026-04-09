@@ -145,17 +145,17 @@ export function Testimonials() {
           className="mt-16 lg:mt-20 py-8 px-8 lg:px-12 bg-muted/50 rounded-xl flex flex-wrap items-center justify-center gap-8 lg:gap-16"
         >
           <div className="text-center">
-            <span className="font-serif text-4xl font-bold text-foreground">50+</span>
+            <span className="font-serif text-4xl font-bold text-foreground drop-shadow-sm">50+</span>
             <p className="text-sm text-muted-foreground mt-1">выпускников</p>
           </div>
           <div className="w-px h-12 bg-border hidden sm:block" />
           <div className="text-center">
-            <span className="font-serif text-4xl font-bold text-foreground">87%</span>
+            <span className="font-serif text-4xl font-bold text-foreground drop-shadow-sm">87%</span>
             <p className="text-sm text-muted-foreground mt-1">нашли работу</p>
           </div>
           <div className="w-px h-12 bg-border hidden sm:block" />
           <div className="text-center">
-            <span className="font-serif text-4xl font-bold text-foreground">6-9</span>
+            <span className="font-serif text-4xl font-bold text-primary">6-9</span>
             <p className="text-sm text-muted-foreground mt-1">месяцев до оффера</p>
           </div>
         </motion.div>
