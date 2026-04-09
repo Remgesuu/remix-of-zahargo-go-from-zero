@@ -196,7 +196,7 @@ function ModuleCard({ module, index, isOpen, onToggle }: {
           className="w-full py-6 lg:py-8 flex items-start gap-4 lg:gap-6 text-left group focus-visible:outline-none"
         >
           {/* Module Number */}
-          <span className="font-serif text-3xl lg:text-4xl font-bold text-primary/30 group-hover:text-primary/50 group-focus-visible:text-primary/50 transition-colors shrink-0 w-12 lg:w-16">
+          <span className="font-serif text-3xl lg:text-4xl font-bold text-primary/70 group-hover:text-primary group-focus-visible:text-primary transition-colors shrink-0 w-12 lg:w-16">
             {module.number}
           </span>
 
@@ -354,7 +354,7 @@ export function Program() {
             <p className="text-xs lg:text-sm text-[hsl(var(--muted-foreground))] mt-1">проектов в портфолио</p>
           </div>
           <div className="text-center p-4 lg:p-6 bg-[hsl(var(--card))] rounded-lg">
-            <span className="font-serif text-2xl lg:text-3xl font-bold text-[hsl(var(--foreground))]">6-9</span>
+            <span className="font-serif text-2xl lg:text-3xl font-bold text-primary">6-9</span>
             <p className="text-xs lg:text-sm text-[hsl(var(--muted-foreground))] mt-1">месяцев до оффера</p>
           </div>
         </motion.div>
