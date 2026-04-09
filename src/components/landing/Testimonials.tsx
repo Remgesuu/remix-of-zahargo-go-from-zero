@@ -156,7 +156,7 @@ export function Testimonials() {
           <div className="w-px h-12 bg-border hidden sm:block" />
           <div className="text-center">
             <span className="font-serif text-4xl font-bold text-primary">6-9</span>
-            <p className="text-sm text-muted-foreground mt-1">месяцев до оффера</p>
+            <p className="text-sm text-muted-foreground mt-1">месяцев продуктивной работы</p>
           </div>
         </motion.div>
       </div>
