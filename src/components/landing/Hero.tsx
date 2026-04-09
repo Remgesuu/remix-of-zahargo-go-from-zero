@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight, Terminal, X, Minus, Plus } from "lucide-react";
 import { LINKS } from "@/config/links";
+import { useState } from "react";
 
 // Animated code lines for the terminal
 const codeLines = [
@@ -16,6 +17,8 @@ const codeLines = [
 ];
 
 function CodeTerminal() {
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -26,11 +29,21 @@ function CodeTerminal() {
       {/* Terminal window */}
       <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/5">
         {/* Terminal header */}
-        <div className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5">
+        <div 
+          className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5"
+          onMouseEnter={() => setIsHeaderHovered(true)}
+          onMouseLeave={() => setIsHeaderHovered(false)}
+        >
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+            <div className="w-3 h-3 rounded-full bg-[#ff5f57] flex items-center justify-center cursor-pointer hover:bg-[#ff4136] transition-colors">
+              {isHeaderHovered && <X className="w-2 h-2 text-[#4a0002]" strokeWidth={2.5} />}
+            </div>
+            <div className="w-3 h-3 rounded-full bg-[#febc2e] flex items-center justify-center cursor-pointer hover:bg-[#f5a623] transition-colors">
+              {isHeaderHovered && <Minus className="w-2 h-2 text-[#985700]" strokeWidth={2.5} />}
+            </div>
+            <div className="w-3 h-3 rounded-full bg-[#28c840] flex items-center justify-center cursor-pointer hover:bg-[#1db954] transition-colors">
+              {isHeaderHovered && <Plus className="w-2 h-2 text-[#006500]" strokeWidth={2.5} />}
+            </div>
           </div>
           <div className="flex-1 flex items-center justify-center gap-2 text-xs text-white/40">
             <Terminal className="w-3 h-3" />
@@ -91,9 +104,9 @@ export function Hero() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr,auto] gap-12 lg:gap-20 items-center">
           {/* Content */}
-          <div>
+          <div className="min-w-0">
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -183,7 +196,7 @@ export function Hero() {
           </div>
 
           {/* Terminal Visual */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block w-[420px] xl:w-[480px] flex-shrink-0">
             <CodeTerminal />
           </div>
         </div>
