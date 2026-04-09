@@ -67,7 +67,7 @@ function CodeTerminal() {
         whileDrag={{ scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
       >
         {/* Terminal window */}
-        <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/10 w-[480px] xl:w-[560px]">
+        <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/10 w-[420px] xl:w-[480px]">
           {/* Terminal header */}
           <div 
             className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5 select-none"
@@ -199,10 +199,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif text-display text-foreground mb-6 lg:mb-8 text-balance"
+              className="font-serif text-display text-foreground mb-6 lg:mb-8"
             >
-              Go-разработка.{" "}
-              <span className="text-primary">С нуля до продакшена</span>
+              <span className="block">GOLANG</span>
+              <span className="text-primary">С НУЛЯ ДО ПРОДАКШЕНА</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -250,21 +250,21 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-12 lg:mt-16 flex flex-wrap items-center gap-6 lg:gap-10 text-sm text-muted-foreground"
+              className="mt-12 lg:mt-16 flex items-center gap-4 sm:gap-6 lg:gap-8 text-sm text-muted-foreground"
             >
-              <div className="flex items-center gap-3">
-                <span className="font-serif text-3xl lg:text-4xl font-bold text-foreground">5</span>
-                <span className="max-w-[80px] leading-tight">реальных проектов</span>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">5</span>
+                <span className="text-xs sm:text-sm leading-tight">реальных<br />проектов</span>
               </div>
-              <div className="w-px h-8 bg-border hidden sm:block" />
-              <div className="flex items-center gap-3">
-                <span className="font-serif text-3xl lg:text-4xl font-bold text-foreground">150+</span>
-                <span className="max-w-[100px] leading-tight">практических заданий</span>
+              <div className="w-px h-8 bg-border" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">150+</span>
+                <span className="text-xs sm:text-sm leading-tight">практических<br />заданий</span>
               </div>
-              <div className="w-px h-8 bg-border hidden sm:block" />
-              <div className="flex items-center gap-3">
-                <span className="font-serif text-3xl lg:text-4xl font-bold text-primary">1:1</span>
-                <span className="max-w-[100px] leading-tight">персональный ментор</span>
+              <div className="w-px h-8 bg-border" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">1:1</span>
+                <span className="text-xs sm:text-sm leading-tight">персональный<br />ментор</span>
               </div>
             </motion.div>
           </div>
@@ -276,22 +276,35 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator - positioned in document flow, not absolute */}
-      <div className="flex justify-center pb-8 hidden lg:flex">
+      {/* Scroll indicator - floating at bottom center */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block"
+      >
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
+          animate={{ 
+            y: [0, 12, 0],
+            opacity: [0.6, 1, 0.6]
+          }}
+          transition={{ 
+            duration: 2.5, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="flex flex-col items-center gap-2 cursor-pointer group"
+          onClick={() => window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 rounded-full border-2 border-border flex items-start justify-center pt-2"
-          >
-            <div className="w-1 h-2 bg-muted-foreground rounded-full" />
-          </motion.div>
+          <div className="w-7 h-11 rounded-full border-2 border-muted-foreground/40 group-hover:border-primary/60 flex items-start justify-center pt-2 transition-colors">
+            <motion.div 
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1.5 h-2.5 bg-muted-foreground/60 group-hover:bg-primary/80 rounded-full transition-colors" 
+            />
+          </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
