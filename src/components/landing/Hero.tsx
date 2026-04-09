@@ -201,7 +201,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="font-serif text-display text-foreground mb-6 lg:mb-8 text-balance"
             >
-              Golang-разработка.{" "}
+              Go-разработка.{" "}
               <span className="text-primary">С нуля до продакшена</span>
             </motion.h1>
 
