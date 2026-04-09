@@ -1,31 +1,31 @@
 import { Navigation } from "@/components/landing/Navigation";
 import { Hero } from "@/components/landing/Hero";
+import { Testimonials } from "@/components/landing/Testimonials";
 import { ValueProps } from "@/components/landing/ValueProps";
-import { Portfolio } from "@/components/landing/Portfolio";
-import { Curriculum } from "@/components/landing/Curriculum";
+import { Program } from "@/components/landing/Program";
 import { Mentor } from "@/components/landing/Mentor";
-import { SalaryGrowth } from "@/components/landing/SalaryGrowth";
 import { Pricing } from "@/components/landing/Pricing";
 import { FAQ } from "@/components/landing/FAQ";
-import { FinalCTA } from "@/components/landing/FinalCTA";
+import { LeadForm } from "@/components/landing/LeadForm";
 import { Footer } from "@/components/landing/Footer";
+import { StickyMobileCTA } from "@/components/landing/StickyMobileCTA";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div id="top" className="min-h-screen bg-background overflow-hidden">
       <Navigation />
       <main>
         <Hero />
+        <Testimonials />
         <ValueProps />
-        <Portfolio />
-        <Curriculum />
+        <Program />
         <Mentor />
-        <SalaryGrowth />
         <Pricing />
         <FAQ />
-        <FinalCTA />
+        <LeadForm />
       </main>
       <Footer />
+      <StickyMobileCTA />
     </div>
   );
 };

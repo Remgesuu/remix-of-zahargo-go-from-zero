@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-
-const TG_LINK = "https://t.me/zaharich777";
+import { LINKS } from "@/config/links";
 
 export function FinalCTA() {
   const ref = useRef(null);
@@ -32,7 +31,7 @@ export function FinalCTA() {
           </p>
 
           <a
-            href={TG_LINK}
+            href={LINKS.telegram}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 bg-primary text-primary-foreground px-10 py-5 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300"

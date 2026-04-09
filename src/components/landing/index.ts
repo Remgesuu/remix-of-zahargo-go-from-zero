@@ -1,11 +1,11 @@
 export { Navigation } from "./Navigation";
 export { Hero } from "./Hero";
+export { Testimonials } from "./Testimonials";
 export { ValueProps } from "./ValueProps";
-export { Portfolio } from "./Portfolio";
-export { Curriculum } from "./Curriculum";
+export { Program } from "./Program";
 export { Mentor } from "./Mentor";
-export { SalaryGrowth } from "./SalaryGrowth";
 export { Pricing } from "./Pricing";
 export { FAQ } from "./FAQ";
-export { FinalCTA } from "./FinalCTA";
+export { LeadForm } from "./LeadForm";
 export { Footer } from "./Footer";
+export { StickyMobileCTA } from "./StickyMobileCTA";
