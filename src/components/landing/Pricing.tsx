@@ -115,11 +115,6 @@ export function Pricing() {
                     / {plan.period}
                   </span>
                 </div>
-                <p className={`text-sm mt-2 ${
-                  plan.highlighted ? "text-[hsl(var(--background))]/50" : "text-[hsl(var(--muted-foreground))]"
-                }`}>
-                  Итого за {plan.duration}: {plan.totalPrice} ₽
-                </p>
               </div>
 
               {/* Features */}
