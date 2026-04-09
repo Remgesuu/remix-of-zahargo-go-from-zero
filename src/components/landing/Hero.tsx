@@ -67,7 +67,7 @@ function CodeTerminal() {
         whileDrag={{ scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
       >
         {/* Terminal window */}
-        <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/10 w-[420px] xl:w-[480px]">
+        <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl border border-white/10 w-[380px] xl:w-[440px]">
           {/* Terminal header */}
           <div 
             className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/5 select-none"
@@ -178,7 +178,7 @@ export function Hero() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-24 w-full">
-        <div className="grid lg:grid-cols-[1fr,500px] xl:grid-cols-[1fr,580px] gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-[1fr,420px] xl:grid-cols-[1fr,480px] gap-8 lg:gap-12 items-start lg:items-center">
           {/* Content */}
           <div className="min-w-0">
             {/* Eyebrow */}
@@ -199,10 +199,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif text-display text-foreground mb-6 lg:mb-8"
+              className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground mb-6 lg:mb-8 leading-[1.1]"
             >
-              <span className="block">GOLANG</span>
-              <span className="text-primary">С НУЛЯ ДО ПРОДАКШЕНА</span>
+              Go-разработка.{" "}
+              <span className="text-primary whitespace-nowrap">С нуля до продакшена</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -269,8 +269,8 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Terminal Visual - larger and draggable */}
-          <div className="hidden lg:flex items-center justify-end relative h-[500px] overflow-visible">
+          {/* Terminal Visual - draggable */}
+          <div className="hidden lg:flex items-start justify-end relative pt-8">
             <CodeTerminal />
           </div>
         </div>
