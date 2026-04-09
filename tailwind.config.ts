@@ -14,8 +14,15 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Satoshi", "system-ui", "sans-serif"],
+        serif: ["Fraunces", "Georgia", "serif"],
+      },
+      fontSize: {
+        // Editorial scale with tight tracking for headlines
+        "display": ["clamp(3rem, 8vw, 7rem)", { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "headline": ["clamp(2.25rem, 5vw, 4rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "title": ["clamp(1.5rem, 3vw, 2.25rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.6" }],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -66,15 +73,38 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(160 100% 45% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(160 100% 45% / 0.5)" },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.96)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-in-left": {
+          from: { opacity: "0", transform: "translateX(-24px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        "progress-fill": {
+          from: { width: "0%" },
+          to: { width: "var(--progress-width)" },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "accordion-down": "accordion-down 0.3s ease-out",
+        "accordion-up": "accordion-up 0.3s ease-out",
+        "fade-up": "fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "slide-in-left": "slide-in-left 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "progress-fill": "progress-fill 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },

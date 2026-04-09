@@ -2,42 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Satoshi:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 220 20% 6%;
-    --foreground: 0 0% 95%;
-
-    --card: 220 18% 10%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 220 18% 10%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 160 100% 45%;
-    --primary-foreground: 220 20% 6%;
-
-    --secondary: 220 16% 14%;
-    --secondary-foreground: 0 0% 90%;
-
-    --muted: 220 14% 16%;
-    --muted-foreground: 220 10% 55%;
-
-    --accent: 160 80% 40%;
-    --accent-foreground: 220 20% 6%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 220 14% 18%;
-    --input: 220 14% 18%;
-    --ring: 160 100% 45%;
-
-    --radius: 0.75rem;
-
-    --glow-primary: 0 0 60px hsl(160 100% 45% / 0.15);
-    --gradient-hero: linear-gradient(135deg, hsl(160 100% 45%) 0%, hsl(180 80% 50%) 100%);
+    /* Premium Editorial Color System */
+    --background: 40 20% 96%;        /* Warm off-white: #F5F2ED */
+    --foreground: 240 6% 10%;        /* Deep charcoal: #18181B */
+    
+    --card: 40 25% 98%;              /* Soft cream: #FAFAF8 */
+    --card-foreground: 240 6% 10%;
+    
+    --popover: 40 25% 98%;
+    --popover-foreground: 240 6% 10%;
+    
+    --primary: 20 56% 51%;           /* Terracotta: #C9673A */
+    --primary-foreground: 40 20% 96%;
+    
+    --secondary: 240 6% 10%;         /* Deep charcoal for dark sections */
+    --secondary-foreground: 40 20% 96%;
+    
+    --muted: 40 10% 90%;
+    --muted-foreground: 0 0% 42%;    /* Stone gray: #6B6B6B */
+    
+    --accent: 20 56% 51%;
+    --accent-foreground: 40 20% 96%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 20% 96%;
+    
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 20 56% 51%;
+    
+    --radius: 0.5rem;
+    
+    /* Dark section variants */
+    --dark-bg: 240 6% 10%;
+    --dark-fg: 40 20% 96%;
+    --dark-muted: 0 0% 60%;
+    --dark-border: 0 0% 20%;
   }
 }
 
@@ -45,7 +49,91 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground font-sans;
+  
+  html {
+    scroll-behavior: smooth;
   }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  /* Custom selection color */
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Section variants */
+  .section-dark {
+    --background: 240 6% 10%;
+    --foreground: 40 20% 96%;
+    --muted-foreground: 0 0% 65%;
+    --border: 0 0% 20%;
+    --card: 240 5% 14%;
+    --card-foreground: 40 20% 96%;
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+  }
+  
+  /* Typography utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Reveal animation */
+  .reveal-up {
+    animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  
+  .reveal-up-delay-1 {
+    animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    opacity: 0;
+  }
+  
+  .reveal-up-delay-2 {
+    animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    opacity: 0;
+  }
+  
+  .reveal-up-delay-3 {
+    animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    opacity: 0;
+  }
+  
+  /* Subtle grain texture overlay */
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Accordion overrides for new theme */
+[data-state="open"] > [data-accordion-trigger] {
+  @apply text-primary;
 }
